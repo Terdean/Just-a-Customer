@@ -13,7 +13,7 @@ public class Subsequence : MonoBehaviour
 
     public bool[] sequences; //Если true - значит кнопка нажата, если false - значит не нажата
     public string[] latters; //Список букв, которые нужно нажать. Этот и массив выше должны быть одинакового размера
-    private int latterNumber;
+    public int latterNumber; //Эту переменную нужно обнулять через другие скрипты по выполнении всех действий
 
     public bool isEverySequencesTrue; //Это самая важная финальная переменная - Если все буквы нажаты в правильном порядке
                                       //Но не забывайте эту переменную в других скриптах делать false, когда код сделался.
@@ -349,82 +349,82 @@ public class Subsequence : MonoBehaviour
             switch (randomLatter)
             {
                 case 0:
-                    latters[randomLatter] = "A";
+                    latters[randomFillerForeachNum] = "A";
                     return;
                 case 1:
-                    latters[randomLatter] = "B";
+                    latters[randomFillerForeachNum] = "B";
                     return;
                 case 2:
-                    latters[randomLatter] = "C";
+                    latters[randomFillerForeachNum] = "C";
                     return;
                 case 3:
-                    latters[randomLatter] = "D";
+                    latters[randomFillerForeachNum] = "D";
                     return;
                 case 4:
-                    latters[randomLatter] = "E";
+                    latters[randomFillerForeachNum] = "E";
                     return;
                 case 5:
-                    latters[randomLatter] = "F";
+                    latters[randomFillerForeachNum] = "F";
                     return;
                 case 6:
-                    latters[randomLatter] = "G";
+                    latters[randomFillerForeachNum] = "G";
                     return;
                 case 7:
-                    latters[randomLatter] = "H";
+                    latters[randomFillerForeachNum] = "H";
                     return;
                 case 8:
-                    latters[randomLatter] = "I";
+                    latters[randomFillerForeachNum] = "I";
                     return;
                 case 9:
-                    latters[randomLatter] = "J";
+                    latters[randomFillerForeachNum] = "J";
                     return;
                 case 10:
-                    latters[randomLatter] = "K";
+                    latters[randomFillerForeachNum] = "K";
                     return;
                 case 11:
-                    latters[randomLatter] = "L";
+                    latters[randomFillerForeachNum] = "L";
                     return;
                 case 12:
-                    latters[randomLatter] = "M";
+                    latters[randomFillerForeachNum] = "M";
                     return;
                 case 13:
-                    latters[randomLatter] = "N";
+                    latters[randomFillerForeachNum] = "N";
                     return;
                 case 14:
-                    latters[randomLatter] = "O";
+                    latters[randomFillerForeachNum] = "O";
                     return;
                 case 15:
-                    latters[randomLatter] = "P";
+                    latters[randomFillerForeachNum] = "P";
                     return;
                 case 16:
-                    latters[randomLatter] = "Q";
+                    latters[randomFillerForeachNum] = "Q";
                     return;
                 case 17:
-                    latters[randomLatter] = "R";
+                    latters[randomFillerForeachNum] = "R";
                     return;
                 case 18:
-                    latters[randomLatter] = "S";
+                    latters[randomFillerForeachNum] = "S";
                     return;
                 case 19:
-                    latters[randomLatter] = "T";
+                    latters[randomFillerForeachNum] = "T";
                     return;
                 case 20:
-                    latters[randomLatter] = "U";
+                    latters[randomFillerForeachNum] = "U";
                     return;
                 case 21:
-                    latters[randomLatter] = "V";
+                    latters[randomFillerForeachNum] = "V";
                     return;
                 case 22:
-                    latters[randomLatter] = "W";
+                    latters[randomFillerForeachNum] = "W";
                     return;
                 case 23:
-                    latters[randomLatter] = "X";
+                    latters[randomFillerForeachNum] = "X";
                     return;
                 case 24:
-                    latters[randomLatter] = "Y";
+                    latters[randomFillerForeachNum] = "Y";
                     return;
                 case 25:
-                    latters[randomLatter] = "Z";
+                    latters[randomFillerForeachNum] = "Z";
                     return;
             }
 
