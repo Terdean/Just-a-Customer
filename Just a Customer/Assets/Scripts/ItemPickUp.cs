@@ -6,15 +6,16 @@ using UnityEngine.UIElements;
 public class ItemPickUp : MonoBehaviour
 {
     private Vector3 dragOffset;
+    public ItemPickUpWalls walls;
 
     private void OnMouseDown()
     {
-        dragOffset = this.transform.position - GetMousePosition();
+        if(!walls.isObjectTouchedWall) dragOffset = this.transform.position - GetMousePosition();
     }
 
     private void OnMouseDrag()
     {
-        this.transform.position = GetMousePosition() + dragOffset;
+        if (!walls.isObjectTouchedWall) this.transform.position = GetMousePosition() + dragOffset;
     }
 
     private Vector3 GetMousePosition()
