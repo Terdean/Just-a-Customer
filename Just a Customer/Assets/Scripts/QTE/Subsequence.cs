@@ -40,6 +40,11 @@ public class Subsequence : MonoBehaviour
         numForeach = 0;
     }
 
+    public void Checkanie()
+    {
+        isEverySequencesTrue = true;
+    }
+
     public void whichLatterToPress() //Чек совпадает ли нажатая клавиша с нужной клавишей для нажатия
     {
         if (latters.Length > latterNumber)

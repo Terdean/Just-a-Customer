@@ -703,6 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e468ef3295e46a84ebdffaa82375840b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isObjectTouchedWall: 0
 --- !u!1 &885795945
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +837,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walls: {fileID: 1121621777}
-  isObjectTouchedWall: 0
 --- !u!212 &1121621779
 SpriteRenderer:
   m_ObjectHideFlags: 0
