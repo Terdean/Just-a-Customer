@@ -42,10 +42,10 @@ public class Movement : MonoBehaviour
     {
         if(!sucubFirstLatterChange) //Рандомно заполнить в начале игры
         {
-            sucubLeft1.sequencesRandomFiller(1);
-            sucubLeft2.sequencesRandomFiller(1);
-            sucubRight1.sequencesRandomFiller(1);
-            sucubRight2.sequencesRandomFiller(1);
+            //sucubLeft1.sequencesRandomFiller(1, 1);
+            //sucubLeft2.sequencesRandomFiller(1, 2);
+            //sucubRight1.sequencesRandomFiller(1, 3);
+            //sucubRight2.sequencesRandomFiller(1, 4);
 
             CheckForSameLatters();
             if (!sucubSameLattersFound) sucubFirstLatterChange = true;
@@ -54,16 +54,16 @@ public class Movement : MonoBehaviour
         if(leftChangeControlsTimer > 0) leftChangeControlsTimer -= Time.deltaTime; //Рандомное заполнение раз в какое-то время
         else
         {
-            sucubLeft1.sequencesRandomFiller(1);
-            sucubLeft2.sequencesRandomFiller(1);
+            //sucubLeft1.sequencesRandomFiller(1, 1);
+            //sucubLeft2.sequencesRandomFiller(1, 2);
             CheckForSameLatters();
             if (!sucubSameLattersFound) leftChangeControlsTimer = Random.Range(leftChangeControlsTimerStartMin, leftChangeControlsTimerStartMax);
         }
         if (rightChangeControlsTimer > 0) rightChangeControlsTimer -= Time.deltaTime;
         else
         {
-            sucubRight2.sequencesRandomFiller(1);
-            sucubRight2.sequencesRandomFiller(1);
+            //sucubRight2.sequencesRandomFiller(1, 3);
+            //sucubRight2.sequencesRandomFiller(1, 3);
             CheckForSameLatters();
             if (!sucubSameLattersFound) rightChangeControlsTimer = Random.Range(rightChangeControlsTimerStartMin, rightChangeControlsTimerStartMax);
         }

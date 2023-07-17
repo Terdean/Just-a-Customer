@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &16575547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +348,8 @@ MonoBehaviour:
   latterNumber: 0
   isEverySequencesTrue: 0
   playerMissed: 0
+  idOfAction: 0
+  keysUsedByActions: []
 --- !u!4 &518734539
 Transform:
   m_ObjectHideFlags: 0
@@ -417,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &731127058
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -823,7 +825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1121621778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,7 +1041,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1267453093
 GameObject:
@@ -1075,6 +1077,8 @@ MonoBehaviour:
   latterNumber: 0
   isEverySequencesTrue: 0
   playerMissed: 0
+  idOfAction: 0
+  keysUsedByActions: []
 --- !u!4 &1267453095
 Transform:
   m_ObjectHideFlags: 0
@@ -1123,6 +1127,8 @@ MonoBehaviour:
   latterNumber: 0
   isEverySequencesTrue: 0
   playerMissed: 0
+  idOfAction: 0
+  keysUsedByActions: []
 --- !u!4 &1346113132
 Transform:
   m_ObjectHideFlags: 0
@@ -1154,7 +1160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1730224291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1251,7 +1257,7 @@ Transform:
   - {fileID: 306354640}
   - {fileID: 653994582}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1846581486
 GameObject:
@@ -1287,6 +1293,8 @@ MonoBehaviour:
   latterNumber: 0
   isEverySequencesTrue: 0
   playerMissed: 0
+  idOfAction: 0
+  keysUsedByActions: []
 --- !u!4 &1846581488
 Transform:
   m_ObjectHideFlags: 0
@@ -1340,6 +1348,8 @@ MonoBehaviour:
   latterNumber: 0
   isEverySequencesTrue: 0
   playerMissed: 0
+  idOfAction: 0
+  keysUsedByActions: []
 --- !u!4 &2044736250
 Transform:
   m_ObjectHideFlags: 0
@@ -1434,5 +1444,5 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

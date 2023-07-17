@@ -11,38 +11,63 @@ public class Subsequence : MonoBehaviour
     //Так же в скрипте есть два метода интересных: sequencesRandomFiller и sequencecsConstantFiller их можно юзать
     //для заполнения массивов нужными буквами при помощи скриптов из вне.
 
+    [Header("Settings only for this Sequence")]
     public bool[] sequences; //Если true - значит кнопка нажата, если false - значит не нажата
     public string[] latters; //Список букв, которые нужно нажать. Этот и массив выше должны быть одинакового размера. Буквы строго капсом!
-    public int latterNumber; //Эту переменную нужно обнулять через другие скрипты по выполнении всех действий
+    [HideInInspector]
+    public int latterNumber; //Номер буквы нужной сейчас для нажатия. Эту переменную нужно обнулять через другие скрипты по выполнении всех действий
 
     public bool isEverySequencesTrue; //Это самая важная финальная переменная - Если все буквы нажаты в правильном порядке
                                       //Но не забывайте эту переменную в других скриптах делать false, когда код сделался.
     public bool playerMissed; //Эта переменная не обязательно должна использоваться. Но у неё работа, как у isEverySequencesTrue
                               //Но не забывайте эту переменную в других скриптах делать false, когда код сделался.
 
+    [Header("Settings of all Sequences")]
+    public int idOfAction;
+    private bool isIdOfActionUsed = false;
+    static bool[] currentlyUsedKeys;
+    public CurrentlyUsedKeys[] keysUsedByActions; //Статичный массив вообще всех требуемых для управления букв.
+                                                  //Вообще всех - значит из всех вообще применений скрипта Subsequence в игре.
+                                                  //Благодаря этом массиву была оптимизированна огромная часть игры :О
+    public CurrentlyUsedKeys[] check;
+
     private KeyCode lastPressedKey;
 
-    private int numForeach = 0; //Тут куча вспомогательных переменных, просто тыкните на них и поймёте для чего они нужны
-    private int randomFillerForeachNum = 0;
-    private int constantFillerForeachNum = 0;
-    private int randomLatter;
+    //Тут куча вспомогательных переменных, просто тыкните на них и поймёте для чего они нужны
+    private int _numForeach = 0;
+    private int _randomFillerForeachNum = 0;
+    private int _constantFillerForeachNum = 0;
+    private int _randomLatter;
+    private int _foreachImportantKeyCheckNum1 = 0;
+    private int _foreachImportantKeyCheckNum2 = 0;
+    private bool _isMissJustified;
+    private int _starterForeachNum = 0;
+
+    private int _checkNum1;
+    private int _checkNum2;
 
     void Update()
     {
+        if (!isIdOfActionUsed) //Для заполнения общего массива, если Subsequence заполняется вручную
+        {
+            foreach (var latter in latters)
+            {
+                ImportantKeysStaticArraysChange(latters[_starterForeachNum], idOfAction, _starterForeachNum);
+                _starterForeachNum++;
+            }
+            _starterForeachNum = 0;
+            isIdOfActionUsed = true;
+        }
+
         whichLatterToPress();
 
         foreach (bool i in sequences) //Проверка сколько клавиш правильно нажато 
         {
-            if (sequences[numForeach] == true) numForeach++;
+            if (sequences[_numForeach] == true) _numForeach++;
 
-            if (numForeach >= sequences.Length) isEverySequencesTrue = true;
+            if (_numForeach >= sequences.Length) isEverySequencesTrue = true;
         }
-        numForeach = 0;
-    }
-
-    public void Checkanie()
-    {
-        isEverySequencesTrue = true;
+        _numForeach = 0;
     }
 
     public void whichLatterToPress() //Чек совпадает ли нажатая клавиша с нужной клавишей для нажатия
@@ -52,409 +77,280 @@ public class Subsequence : MonoBehaviour
             switch (lastPressedKey)
             {
                 case KeyCode.A:
-                    if (latters[latterNumber] != "A") playerMissed = true;
-
-                    if (latters[latterNumber] == "A")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash; //Это нужно, чтобы игра не запоминала, что нажата данная кнопка и не повторила процесс, если следующая кнопка в массиве совпадает
-
+                    whichLatterToPressCheck("A");
                     return;
                 case KeyCode.B:
-                    if (latters[latterNumber] != "B") playerMissed = true;
-
-                    if (latters[latterNumber] == "B")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("B");
                     return;
                 case KeyCode.C:
-                    if (latters[latterNumber] != "C") playerMissed = true;
-
-                    if (latters[latterNumber] == "C")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("C");
                     return;
                 case KeyCode.D:
-                    if (latters[latterNumber] != "D") playerMissed = true;
-
-                    if (latters[latterNumber] == "D")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("D");
                     return;
                 case KeyCode.E:
-                    if (latters[latterNumber] != "E") playerMissed = true;
-
-                    if (latters[latterNumber] == "E")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("E");
                     return;
                 case KeyCode.F:
-                    if (latters[latterNumber] != "F") playerMissed = true;
-
-                    if (latters[latterNumber] == "F")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("F");
                     return;
                 case KeyCode.G:
-                    if (latters[latterNumber] != "G") playerMissed = true;
-
-                    if (latters[latterNumber] == "G")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("G");
                     return;
                 case KeyCode.H:
-                    if (latters[latterNumber] != "H") playerMissed = true;
-
-                    if (latters[latterNumber] == "H")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("H");
                     return;
                 case KeyCode.I:
-                    if (latters[latterNumber] != "I") playerMissed = true;
-
-                    if (latters[latterNumber] == "I")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("I");
                     return;
                 case KeyCode.J:
-                    if (latters[latterNumber] != "J") playerMissed = true;
-
-                    if (latters[latterNumber] == "J")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("J");
                     return;
                 case KeyCode.K:
-                    if (latters[latterNumber] != "K") playerMissed = true;
-
-                    if (latters[latterNumber] == "K")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("K");
                     return;
                 case KeyCode.L:
-                    if (latters[latterNumber] != "L") playerMissed = true;
-
-                    if (latters[latterNumber] == "L")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("L");
                     return;
                 case KeyCode.M:
-                    if (latters[latterNumber] != "M") playerMissed = true;
-
-                    if (latters[latterNumber] == "M")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("M");
                     return;
                 case KeyCode.N:
-                    if (latters[latterNumber] != "N") playerMissed = true;
-
-                    if (latters[latterNumber] == "N")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("N");
                     return;
                 case KeyCode.O:
-                    if (latters[latterNumber] != "O") playerMissed = true;
-
-                    if (latters[latterNumber] == "O")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("O");
                     return;
                 case KeyCode.P:
-                    if (latters[latterNumber] != "P") playerMissed = true;
-
-                    if (latters[latterNumber] == "P")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("P");
                     return;
                 case KeyCode.Q:
-                    if (latters[latterNumber] != "Q") playerMissed = true;
-
-                    if (latters[latterNumber] == "Q")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("Q");
                     return;
                 case KeyCode.R:
-                    if (latters[latterNumber] != "R") playerMissed = true;
-
-                    if (latters[latterNumber] == "R")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("R");
                     return;
                 case KeyCode.S:
-                    if (latters[latterNumber] != "S") playerMissed = true;
-
-                    if (latters[latterNumber] == "S")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("S");
                     return;
                 case KeyCode.T:
-                    if (latters[latterNumber] != "T") playerMissed = true;
-
-                    if (latters[latterNumber] == "T")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("T");
                     return;
                 case KeyCode.U:
-                    if (latters[latterNumber] != "U") playerMissed = true;
-
-                    if (latters[latterNumber] == "U")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("U");
                     return;
                 case KeyCode.V:
-                    if (latters[latterNumber] != "V") playerMissed = true;
-
-                    if (latters[latterNumber] == "V")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("V");
                     return;
                 case KeyCode.W:
-                    if (latters[latterNumber] != "W") playerMissed = true;
-
-                    if (latters[latterNumber] == "W")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("W");
                     return;
                 case KeyCode.X:
-                    if (latters[latterNumber] != "X") playerMissed = true;
-
-                    if (latters[latterNumber] == "X")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("X");
                     return;
                 case KeyCode.Y:
-                    if (latters[latterNumber] != "Y") playerMissed = true;
-
-                    if (latters[latterNumber] == "Y")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("Y");
                     return;
                 case KeyCode.Z:
-                    if (latters[latterNumber] != "Z") playerMissed = true;
-
-                    if (latters[latterNumber] == "Z")
-                    {
-                        sequences[latterNumber] = true;
-                        latterNumber++;
-                    }
-                    lastPressedKey = KeyCode.Slash;
-
+                    whichLatterToPressCheck("Z");
                     return;
             }
         }
     }
 
-    public void sequencesRandomFiller(int latterCount) //Этот метод должен юзаться через другие скрипты, для рандомного заполнения двух наших массивов
+    public void sequencesRandomFiller(int latterCount, int IDofAction) //Этот метод должен юзаться через другие скрипты, для рандомного заполнения двух наших массивов
     {
         Array.Resize(ref sequences, latterCount);
         Array.Resize(ref latters, latterCount);
 
         foreach (string latter in latters)
         {
-            sequences[randomFillerForeachNum] = false;
+            sequences[_randomFillerForeachNum] = false;
 
-            randomLatter = UnityEngine.Random.Range(0, 25);
-            switch (randomLatter)
+            _randomLatter = UnityEngine.Random.Range(0, 25);
+            switch (_randomLatter)
             {
                 case 0:
-                    latters[randomFillerForeachNum] = "A";
+                    latters[_randomFillerForeachNum] = "A";
+                    ImportantKeysStaticArraysChange("A", IDofAction, _randomFillerForeachNum);
                     return;
                 case 1:
-                    latters[randomFillerForeachNum] = "B";
+                    latters[_randomFillerForeachNum] = "B";
+                    ImportantKeysStaticArraysChange("B", IDofAction, _randomFillerForeachNum);
                     return;
                 case 2:
-                    latters[randomFillerForeachNum] = "C";
+                    latters[_randomFillerForeachNum] = "C";
+                    ImportantKeysStaticArraysChange("C", IDofAction, _randomFillerForeachNum);
                     return;
                 case 3:
-                    latters[randomFillerForeachNum] = "D";
+                    latters[_randomFillerForeachNum] = "D";
+                    ImportantKeysStaticArraysChange("D", IDofAction, _randomFillerForeachNum);
                     return;
                 case 4:
-                    latters[randomFillerForeachNum] = "E";
+                    latters[_randomFillerForeachNum] = "E";
+                    ImportantKeysStaticArraysChange("E", IDofAction, _randomFillerForeachNum);
                     return;
                 case 5:
-                    latters[randomFillerForeachNum] = "F";
+                    latters[_randomFillerForeachNum] = "F";
+                    ImportantKeysStaticArraysChange("F", IDofAction, _randomFillerForeachNum);
                     return;
                 case 6:
-                    latters[randomFillerForeachNum] = "G";
+                    latters[_randomFillerForeachNum] = "G";
+                    ImportantKeysStaticArraysChange("G", IDofAction, _randomFillerForeachNum);
                     return;
                 case 7:
-                    latters[randomFillerForeachNum] = "H";
+                    latters[_randomFillerForeachNum] = "H";
+                    ImportantKeysStaticArraysChange("H", IDofAction, _randomFillerForeachNum);
                     return;
                 case 8:
-                    latters[randomFillerForeachNum] = "I";
+                    latters[_randomFillerForeachNum] = "I";
+                    ImportantKeysStaticArraysChange("I", IDofAction, _randomFillerForeachNum);
                     return;
                 case 9:
-                    latters[randomFillerForeachNum] = "J";
+                    latters[_randomFillerForeachNum] = "J";
+                    ImportantKeysStaticArraysChange("J", IDofAction, _randomFillerForeachNum);
                     return;
                 case 10:
-                    latters[randomFillerForeachNum] = "K";
+                    latters[_randomFillerForeachNum] = "K";
+                    ImportantKeysStaticArraysChange("K", IDofAction, _randomFillerForeachNum);
                     return;
                 case 11:
-                    latters[randomFillerForeachNum] = "L";
+                    latters[_randomFillerForeachNum] = "L";
+                    ImportantKeysStaticArraysChange("L", IDofAction, _randomFillerForeachNum);
                     return;
                 case 12:
-                    latters[randomFillerForeachNum] = "M";
+                    latters[_randomFillerForeachNum] = "M";
+                    ImportantKeysStaticArraysChange("M", IDofAction, _randomFillerForeachNum);
                     return;
                 case 13:
-                    latters[randomFillerForeachNum] = "N";
+                    latters[_randomFillerForeachNum] = "N";
+                    ImportantKeysStaticArraysChange("N", IDofAction, _randomFillerForeachNum);
                     return;
                 case 14:
-                    latters[randomFillerForeachNum] = "O";
+                    latters[_randomFillerForeachNum] = "O";
+                    ImportantKeysStaticArraysChange("O", IDofAction, _randomFillerForeachNum);
                     return;
                 case 15:
-                    latters[randomFillerForeachNum] = "P";
+                    latters[_randomFillerForeachNum] = "P";
+                    ImportantKeysStaticArraysChange("P", IDofAction, _randomFillerForeachNum);
                     return;
                 case 16:
-                    latters[randomFillerForeachNum] = "Q";
+                    latters[_randomFillerForeachNum] = "Q";
+                    ImportantKeysStaticArraysChange("Q", IDofAction, _randomFillerForeachNum);
                     return;
                 case 17:
-                    latters[randomFillerForeachNum] = "R";
+                    latters[_randomFillerForeachNum] = "R";
+                    ImportantKeysStaticArraysChange("R", IDofAction, _randomFillerForeachNum);
                     return;
                 case 18:
-                    latters[randomFillerForeachNum] = "S";
+                    latters[_randomFillerForeachNum] = "S";
+                    ImportantKeysStaticArraysChange("S", IDofAction, _randomFillerForeachNum);
                     return;
                 case 19:
-                    latters[randomFillerForeachNum] = "T";
+                    latters[_randomFillerForeachNum] = "T";
+                    ImportantKeysStaticArraysChange("T", IDofAction, _randomFillerForeachNum);
                     return;
                 case 20:
-                    latters[randomFillerForeachNum] = "U";
+                    latters[_randomFillerForeachNum] = "U";
+                    ImportantKeysStaticArraysChange("U", IDofAction, _randomFillerForeachNum);
                     return;
                 case 21:
-                    latters[randomFillerForeachNum] = "V";
+                    latters[_randomFillerForeachNum] = "V";
+                    ImportantKeysStaticArraysChange("V", IDofAction, _randomFillerForeachNum);
                     return;
                 case 22:
-                    latters[randomFillerForeachNum] = "W";
+                    latters[_randomFillerForeachNum] = "W";
+                    ImportantKeysStaticArraysChange("W", IDofAction, _randomFillerForeachNum);
                     return;
                 case 23:
-                    latters[randomFillerForeachNum] = "X";
+                    latters[_randomFillerForeachNum] = "X";
+                    ImportantKeysStaticArraysChange("X", IDofAction, _randomFillerForeachNum);
                     return;
                 case 24:
-                    latters[randomFillerForeachNum] = "Y";
+                    latters[_randomFillerForeachNum] = "Y";
+                    ImportantKeysStaticArraysChange("Y", IDofAction, _randomFillerForeachNum);
                     return;
                 case 25:
-                    latters[randomFillerForeachNum] = "Z";
+                    latters[_randomFillerForeachNum] = "Z";
+                    ImportantKeysStaticArraysChange("Z", IDofAction, _randomFillerForeachNum);
                     return;
             }
 
-            randomFillerForeachNum++;
+            _randomFillerForeachNum++;
         }
-        randomFillerForeachNum = 0;
+        _randomFillerForeachNum = 0;
     }
 
-    public void sequencecsConstantFiller(string[] customArray) //Для ручного заполнения через другие скрипты, добавляешь просто отдельный кастомный массив со своими буквами
+    public void sequencecsConstantFiller(string[] customArray, int IDofAction) //Для ручного заполнения через другие скрипты, добавляешь просто отдельный кастомный массив со своими буквами
     {
         Array.Resize(ref sequences, customArray.Length);
         Array.Resize(ref latters, customArray.Length);
 
         foreach (string latter in customArray)
         {
-            sequences[constantFillerForeachNum] = false;
+            sequences[_constantFillerForeachNum] = false;
 
-            latters[constantFillerForeachNum] = customArray[constantFillerForeachNum];
-            constantFillerForeachNum++;
+            latters[_constantFillerForeachNum] = customArray[_constantFillerForeachNum];
+            ImportantKeysStaticArraysChange(customArray[_constantFillerForeachNum], IDofAction, _constantFillerForeachNum);
+            _constantFillerForeachNum++;
         }
-        constantFillerForeachNum = 0;
+        _constantFillerForeachNum = 0;
     }
 
     public void OnGUI() //Метод в котором определяется последняя нажатая клавиша
     {
         if (Event.current.isKey) lastPressedKey = Event.current.keyCode;
+    }
+
+    private void whichLatterToPressCheck(string whichLatter) //Вспомогательный метод, который просто упрощает написание метода whichLatterToPress
+    {
+        foreach (var id in keysUsedByActions) //Проверка используется ли нажатая буква в других объектах со скриптом Subsequence и если используется - то скрипт не будет жаловаться, что нажали не на ту кнопку
+        {
+            foreach(var key in keysUsedByActions[_foreachImportantKeyCheckNum1].Latters)
+            {
+                if (keysUsedByActions[_foreachImportantKeyCheckNum1].Latters[_foreachImportantKeyCheckNum2] == whichLatter) 
+                    _isMissJustified = true;
+                _foreachImportantKeyCheckNum2++;
+            }
+            _foreachImportantKeyCheckNum1++;
+            _foreachImportantKeyCheckNum2 = 0;
+        }
+        _foreachImportantKeyCheckNum1 = 0;
+        if (latters[latterNumber] != whichLatter && _isMissJustified == false) playerMissed = true;
+        _isMissJustified = false;
+
+        if (latters[latterNumber] == whichLatter)
+        {
+            sequences[latterNumber] = true;
+            latterNumber++;
+        }
+        lastPressedKey = KeyCode.Slash; //Это нужно, чтобы игра не запоминала, что нажата данная кнопка и не повторила процесс, если следующая кнопка в массиве совпадает
+    }
+
+    private void ImportantKeysStaticArraysChange(string whichLatter, int IDofAction, int importantKeysArrayPos) //Заполнение массивов, что показывают буквы из всех объектов со скриптом Subsequense.
+                                                                                                                //IDofAction - это обозначение из какого Subsequence будут взяты буквы для записи в массивы.
+                                                                                                                //importantKeysArrayPos - это позиция в массиве у буквы для каждого отдельного Subsequence
+    {
+        if (keysUsedByActions.Length < IDofAction + 1)
+        {
+            Array.Resize(ref keysUsedByActions, IDofAction + 1);
+        }
+        Array.Resize(ref keysUsedByActions[IDofAction].Latters, importantKeysArrayPos + 1);
+
+        keysUsedByActions[IDofAction].Latters[importantKeysArrayPos] = whichLatter;
+        
+        foreach (var id in keysUsedByActions)
+        {
+            Array.Resize(ref check, keysUsedByActions.Length);
+            foreach (var key in keysUsedByActions[_checkNum1].Latters)
+            {
+                Array.Resize(ref check[_checkNum1].Latters, keysUsedByActions[_checkNum1].Latters.Length);
+                check[_checkNum1].Latters[_checkNum2] = keysUsedByActions[_checkNum1].Latters[_checkNum2];
+                _checkNum2++;
+            }
+            _checkNum1++;
+            _checkNum2 = 0;
+        }
+        _checkNum1 = 0;
     }
 }
