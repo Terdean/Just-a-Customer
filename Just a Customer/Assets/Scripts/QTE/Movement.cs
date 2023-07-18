@@ -27,8 +27,6 @@ public class Movement : MonoBehaviour
 
     private bool sucubFirstLatterChange;
     private int sucubsForeachNum;
-    //public bool sucubSameLattersFound;
-    //private bool playerActuallyNotMissed;
 
     [HideInInspector]
     public ImportantKeysManager importantKeysManager;
