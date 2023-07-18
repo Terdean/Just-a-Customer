@@ -9,10 +9,10 @@ public class Movement : MonoBehaviour
     public Subsequence sucubRight1;
     public Subsequence sucubRight2;
 
-    public bool sucubLeftReset1;
-    public bool sucubLeftReset2;
-    public bool sucubRightReset1;
-    public bool sucubRightReset2;
+    private bool sucubLeftReset1;
+    private bool sucubLeftReset2;
+    private bool sucubRightReset1;
+    private bool sucubRightReset2;
 
     private float leftChangeControlsTimer;
     public float leftChangeControlsTimerStartMin;
@@ -27,45 +27,47 @@ public class Movement : MonoBehaviour
 
     private bool sucubFirstLatterChange;
     private int sucubsForeachNum;
-    public bool sucubSameLattersFound;
-    private bool playerActuallyNotMissed;
+    //public bool sucubSameLattersFound;
+    //private bool playerActuallyNotMissed;
 
-    private KeyCode lastPressedKey;
+    [HideInInspector]
+    public ImportantKeysManager importantKeysManager;
 
     void Start()
     {
         leftChangeControlsTimer = Random.Range(leftChangeControlsTimerStartMin, leftChangeControlsTimerStartMax);
         rightChangeControlsTimer = Random.Range(rightChangeControlsTimerStartMin, rightChangeControlsTimerStartMax);
+        importantKeysManager = GameObject.Find("ImportantKeysManager").GetComponent<ImportantKeysManager>();
     }
 
     void Update()
     {
         if(!sucubFirstLatterChange) //–андомно заполнить в начале игры
         {
-            //sucubLeft1.sequencesRandomFiller(1, 1);
-            //sucubLeft2.sequencesRandomFiller(1, 2);
-            //sucubRight1.sequencesRandomFiller(1, 3);
-            //sucubRight2.sequencesRandomFiller(1, 4);
+            sucubLeft1.sequencesRandomFiller(1);
+            sucubLeft2.sequencesRandomFiller(1);
+            sucubRight1.sequencesRandomFiller(1);
+            sucubRight2.sequencesRandomFiller(1);
 
-            CheckForSameLatters();
-            if (!sucubSameLattersFound) sucubFirstLatterChange = true;
+            importantKeysManager.CheckForSameLatters();
+            if (importantKeysManager.isSameLatterFound == false) sucubFirstLatterChange = true;
         }
 
-        if(leftChangeControlsTimer > 0) leftChangeControlsTimer -= Time.deltaTime; //–андомное заполнение раз в какое-то врем€
+        if(leftChangeControlsTimer > 0) leftChangeControlsTimer -= Time.deltaTime; //–андомное заполнение раз в рандомное врем€
         else
         {
-            //sucubLeft1.sequencesRandomFiller(1, 1);
-            //sucubLeft2.sequencesRandomFiller(1, 2);
-            CheckForSameLatters();
-            if (!sucubSameLattersFound) leftChangeControlsTimer = Random.Range(leftChangeControlsTimerStartMin, leftChangeControlsTimerStartMax);
+            sucubLeft1.sequencesRandomFiller(1);
+            sucubLeft2.sequencesRandomFiller(1);
+            importantKeysManager.CheckForSameLatters();
+            if (importantKeysManager.isSameLatterFound == false) leftChangeControlsTimer = Random.Range(leftChangeControlsTimerStartMin, leftChangeControlsTimerStartMax);
         }
         if (rightChangeControlsTimer > 0) rightChangeControlsTimer -= Time.deltaTime;
         else
         {
-            //sucubRight2.sequencesRandomFiller(1, 3);
-            //sucubRight2.sequencesRandomFiller(1, 3);
-            CheckForSameLatters();
-            if (!sucubSameLattersFound) rightChangeControlsTimer = Random.Range(rightChangeControlsTimerStartMin, rightChangeControlsTimerStartMax);
+            sucubRight1.sequencesRandomFiller(1);
+            sucubRight2.sequencesRandomFiller(1);
+            importantKeysManager.CheckForSameLatters();
+            if (importantKeysManager.isSameLatterFound == false) rightChangeControlsTimer = Random.Range(rightChangeControlsTimerStartMin, rightChangeControlsTimerStartMax);
         }
 
         if (sucubLeft1.isEverySequencesTrue && !sucubLeftReset1) //ѕроверка нажатий по клавишам
@@ -165,417 +167,416 @@ public class Movement : MonoBehaviour
             sucubRight1.latterNumber = 0;
         }
 
-        CheckForSameLattersForMissing();
+        importantKeysManager.MissingCheck();
     }
 
-    private void CheckForSameLatters() //ѕроверка есть ли у скриптов одинаковые кнопки
-    {
-        if (sucubLeft1.latters[0] == sucubLeft2.latters[0] || sucubLeft1.latters[0] == sucubRight1.latters[0] ||
-            sucubLeft1.latters[0] == sucubRight2.latters[0] || sucubLeft2.latters[0] == sucubRight1.latters[0] ||
-            sucubLeft2.latters[0] == sucubRight2.latters[0] || sucubRight1.latters[0] == sucubRight2.latters[0])
-            sucubSameLattersFound = true;
-        else sucubSameLattersFound = false;
-    }
+    //private void CheckForSameLatters() //ѕроверка есть ли у скриптов одинаковые кнопки
+    //{
+    //    if (sucubLeft1.isFilledSameLatter || sucubLeft2.isFilledSameLatter ||
+    //        sucubRight1.isFilledSameLatter || sucubRight2.isFilledSameLatter)
+    //        sucubSameLattersFound = true;
+    //    else sucubSameLattersFound = false;
 
-    private void CheckForSameLattersForMissing() //ћетод нужен, чтобы игра не защитывала промохи, ведь даже при правильном нажатии на кнопку - у остольных это засчитает, как неверное нажатие. “ак вот это фикситс€ тут
-    {
-        switch (lastPressedKey)
-        {
-            case KeyCode.A:
-                if (sucubLeft1.latters[0] == "A") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "A") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "A") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "A") playerActuallyNotMissed = true;
+    //    sucubLeft1.isFilledSameLatter = false;
+    //    sucubLeft2.isFilledSameLatter = false;
+    //    sucubRight1.isFilledSameLatter = false;
+    //    sucubRight2.isFilledSameLatter = false;
+    //}
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.B:
-                if (sucubLeft1.latters[0] == "B") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "B") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "B") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "B") playerActuallyNotMissed = true;
+    //private void CheckForSameLattersForMissing() //ћетод нужен, чтобы игра не защитывала промохи, ведь даже при правильном нажатии на кнопку - у остольных это засчитает, как неверное нажатие. “ак вот это фикситс€ тут
+    //{
+    //    switch (lastPressedKey)
+    //    {
+    //        case KeyCode.A:
+    //            if (sucubLeft1.latters[0] == "A") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "A") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "A") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "A") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.C:
-                if (sucubLeft1.latters[0] == "C") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "C") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "C") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "C") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.B:
+    //            if (sucubLeft1.latters[0] == "B") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "B") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "B") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "B") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.D:
-                if (sucubLeft1.latters[0] == "D") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "D") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "D") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "D") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.C:
+    //            if (sucubLeft1.latters[0] == "C") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "C") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "C") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "C") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.E:
-                if (sucubLeft1.latters[0] == "E") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "E") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "E") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "E") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.D:
+    //            if (sucubLeft1.latters[0] == "D") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "D") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "D") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "D") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.F:
-                if (sucubLeft1.latters[0] == "F") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "F") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "F") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "F") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.E:
+    //            if (sucubLeft1.latters[0] == "E") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "E") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "E") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "E") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.G:
-                if (sucubLeft1.latters[0] == "G") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "G") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "G") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "G") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.F:
+    //            if (sucubLeft1.latters[0] == "F") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "F") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "F") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "F") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.H:
-                if (sucubLeft1.latters[0] == "H") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "H") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "H") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "H") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.G:
+    //            if (sucubLeft1.latters[0] == "G") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "G") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "G") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "G") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.I:
-                if (sucubLeft1.latters[0] == "I") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "I") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "I") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "I") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.H:
+    //            if (sucubLeft1.latters[0] == "H") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "H") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "H") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "H") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.J:
-                if (sucubLeft1.latters[0] == "J") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "J") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "J") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "J") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.I:
+    //            if (sucubLeft1.latters[0] == "I") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "I") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "I") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "I") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.K:
-                if (sucubLeft1.latters[0] == "K") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "K") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "K") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "K") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.J:
+    //            if (sucubLeft1.latters[0] == "J") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "J") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "J") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "J") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.L:
-                if (sucubLeft1.latters[0] == "L") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "L") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "L") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "L") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.K:
+    //            if (sucubLeft1.latters[0] == "K") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "K") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "K") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "K") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.M:
-                if (sucubLeft1.latters[0] == "M") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "M") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "M") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "M") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.L:
+    //            if (sucubLeft1.latters[0] == "L") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "L") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "L") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "L") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.N:
-                if (sucubLeft1.latters[0] == "N") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "N") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "N") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "N") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.M:
+    //            if (sucubLeft1.latters[0] == "M") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "M") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "M") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "M") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.O:
-                if (sucubLeft1.latters[0] == "O") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "O") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "O") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "O") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.N:
+    //            if (sucubLeft1.latters[0] == "N") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "N") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "N") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "N") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.P:
-                if (sucubLeft1.latters[0] == "P") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "P") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "P") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "P") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.O:
+    //            if (sucubLeft1.latters[0] == "O") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "O") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "O") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "O") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.Q:
-                if (sucubLeft1.latters[0] == "Q") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "Q") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "Q") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "Q") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.P:
+    //            if (sucubLeft1.latters[0] == "P") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "P") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "P") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "P") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.R:
-                if (sucubLeft1.latters[0] == "R") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "R") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "R") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "R") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.Q:
+    //            if (sucubLeft1.latters[0] == "Q") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "Q") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "Q") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "Q") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.S:
-                if (sucubLeft1.latters[0] == "S") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "S") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "S") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "S") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.R:
+    //            if (sucubLeft1.latters[0] == "R") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "R") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "R") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "R") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.T:
-                if (sucubLeft1.latters[0] == "T") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "T") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "T") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "T") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.S:
+    //            if (sucubLeft1.latters[0] == "S") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "S") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "S") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "S") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.U:
-                if (sucubLeft1.latters[0] == "U") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "U") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "U") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "U") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.T:
+    //            if (sucubLeft1.latters[0] == "T") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "T") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "T") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "T") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.V:
-                if (sucubLeft1.latters[0] == "V") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "V") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "V") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "V") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.U:
+    //            if (sucubLeft1.latters[0] == "U") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "U") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "U") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "U") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.W:
-                if (sucubLeft1.latters[0] == "W") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "W") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "W") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "W") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.V:
+    //            if (sucubLeft1.latters[0] == "V") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "V") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "V") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "V") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.X:
-                if (sucubLeft1.latters[0] == "X") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "X") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "X") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "X") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.W:
+    //            if (sucubLeft1.latters[0] == "W") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "W") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "W") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "W") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.Y:
-                if (sucubLeft1.latters[0] == "Y") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "Y") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "Y") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "Y") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.X:
+    //            if (sucubLeft1.latters[0] == "X") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "X") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "X") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "X") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-            case KeyCode.Z:
-                if (sucubLeft1.latters[0] == "Z") playerActuallyNotMissed = true;
-                if (sucubLeft2.latters[0] == "Z") playerActuallyNotMissed = true;
-                if (sucubRight1.latters[0] == "Z") playerActuallyNotMissed = true;
-                if (sucubRight2.latters[0] == "Z") playerActuallyNotMissed = true;
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.Y:
+    //            if (sucubLeft1.latters[0] == "Y") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "Y") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "Y") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "Y") playerActuallyNotMissed = true;
 
-                if (playerActuallyNotMissed)
-                {
-                    playerActuallyNotMissed = false;
-                    sucubLeft1.playerMissed = false;
-                    sucubLeft2.playerMissed = false;
-                    sucubRight1.playerMissed = false;
-                    sucubRight2.playerMissed = false;
-                }
-                return;
-        }
-    }
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //        case KeyCode.Z:
+    //            if (sucubLeft1.latters[0] == "Z") playerActuallyNotMissed = true;
+    //            if (sucubLeft2.latters[0] == "Z") playerActuallyNotMissed = true;
+    //            if (sucubRight1.latters[0] == "Z") playerActuallyNotMissed = true;
+    //            if (sucubRight2.latters[0] == "Z") playerActuallyNotMissed = true;
 
-    public void OnGUI() //ћетод в котором определ€етс€ последн€€ нажата€ клавиша
-    {
-        if (Event.current.isKey) lastPressedKey = Event.current.keyCode;
-    }
+    //            if (playerActuallyNotMissed)
+    //            {
+    //                playerActuallyNotMissed = false;
+    //                sucubLeft1.playerMissed = false;
+    //                sucubLeft2.playerMissed = false;
+    //                sucubRight1.playerMissed = false;
+    //                sucubRight2.playerMissed = false;
+    //            }
+    //            return;
+    //    }
+    //}
 }
