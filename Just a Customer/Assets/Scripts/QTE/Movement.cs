@@ -73,6 +73,8 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, LeftSidePoint.transform.position, 0.5f);
             sucubLeft1.isEverySequencesTrue = false;
             sucubLeft2.isEverySequencesTrue = false;
+            GetComponent<SpriteRenderer>().flipX = true;
+
             foreach (bool i in sucubLeft1.sequences)
             {
                 sucubLeft1.sequences[sucubsForeachNum] = false;
@@ -97,6 +99,8 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, LeftSidePoint.transform.position, 0.5f);
             sucubLeft1.isEverySequencesTrue = false;
             sucubLeft2.isEverySequencesTrue = false;
+            GetComponent<SpriteRenderer>().flipX = true;
+
             foreach (bool i in sucubLeft2.sequences)
             {
                 sucubLeft2.sequences[sucubsForeachNum] = false;
@@ -121,6 +125,8 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, RightSidePoint.transform.position, 0.5f);
             sucubRight1.isEverySequencesTrue = false;
             sucubRight2.isEverySequencesTrue = false;
+            GetComponent<SpriteRenderer>().flipX = false;
+
             foreach (bool i in sucubRight1.sequences)
             {
                 sucubRight1.sequences[sucubsForeachNum] = false;
@@ -145,6 +151,8 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, RightSidePoint.transform.position, 0.5f);
             sucubRight1.isEverySequencesTrue = false;
             sucubRight2.isEverySequencesTrue = false;
+            GetComponent<SpriteRenderer>().flipX = false;
+
             foreach (bool i in sucubRight2.sequences)
             {
                 sucubRight2.sequences[sucubsForeachNum] = false;
