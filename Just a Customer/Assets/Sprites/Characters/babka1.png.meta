@@ -8,6 +8,18 @@ TextureImporter:
   - first:
       213: 4059547246520360380
     second: 0001_1
+  - first:
+      213: -5223372799517367392
+    second: 0001_2
+  - first:
+      213: 188179689751826559
+    second: 0001_3
+  - first:
+      213: 492242805909792206
+    second: babka1_0
+  - first:
+      213: -4290786550683617465
+    second: babka1_1
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -98,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 0001_0
+      name: babka1_0
       rect:
         serializedVersion: 2
         x: 59
@@ -112,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e02c84b33dcf495c0800000000000000
-      internalID: -4209461767521648114
+      spriteID: ec5ae75593cc4d600800000000000000
+      internalID: 492242805909792206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0001_1
+      name: babka1_1
       rect:
         serializedVersion: 2
         x: 481
@@ -133,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbdd2c956b8665830800000000000000
-      internalID: 4059547246520360380
+      spriteID: 747ba7f9d501474c0800000000000000
+      internalID: -4290786550683617465
       vertices: []
       indices: 
       edges: []
