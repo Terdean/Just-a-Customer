@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class movingThing : MonoBehaviour
+public class MovingThing : MonoBehaviour
 {
     public GameObject SusGet;
     public GameObject TortHere;

@@ -73,7 +73,7 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, LeftSidePoint.transform.position, 0.5f);
             sucubLeft1.isEverySequencesTrue = false;
             sucubLeft2.isEverySequencesTrue = false;
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = true;
 
             foreach (bool i in sucubLeft1.sequences)
             {
@@ -99,7 +99,7 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, LeftSidePoint.transform.position, 0.5f);
             sucubLeft1.isEverySequencesTrue = false;
             sucubLeft2.isEverySequencesTrue = false;
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = true;
 
             foreach (bool i in sucubLeft2.sequences)
             {
@@ -125,7 +125,7 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, RightSidePoint.transform.position, 0.5f);
             sucubRight1.isEverySequencesTrue = false;
             sucubRight2.isEverySequencesTrue = false;
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = false;
 
             foreach (bool i in sucubRight1.sequences)
             {
@@ -151,7 +151,7 @@ public class Movement : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, RightSidePoint.transform.position, 0.5f);
             sucubRight1.isEverySequencesTrue = false;
             sucubRight2.isEverySequencesTrue = false;
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = false;
 
             foreach (bool i in sucubRight2.sequences)
             {
