@@ -1,19 +1,31 @@
 fileFormatVersion: 2
-guid: 94423772aae6ab04cb5c7df79babbc70
+guid: b490f3cea9dec9941b6e4140da04ba6f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2313463732811680064
-    second: 0000_0
+      213: -4209461767521648114
+    second: 0001_0
   - first:
-      213: 5622960806364864637
-    second: 0000_1
+      213: 4059547246520360380
+    second: 0001_1
   - first:
-      213: -7396913328574158801
-    second: 0000_2
+      213: -5223372799517367392
+    second: 0001_2
   - first:
-      213: 3080870811438416704
-    second: 0000_3
+      213: 188179689751826559
+    second: 0001_3
+  - first:
+      213: -6652287542230726254
+    second: Vadim1_0
+  - first:
+      213: -5502609187990347524
+    second: Vadim1_1
+  - first:
+      213: 3748779376806919885
+    second: Vadim1_2
+  - first:
+      213: 2787476392744593040
+    second: Vadim1_3
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -104,28 +116,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 0000_0
+      name: Vadim1_0
       rect:
         serializedVersion: 2
-        x: 62
+        x: 57
         y: 0
-        width: 421
+        width: 426
         height: 673
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0494dfaf1031b1020800000000000000
-      internalID: 2313463732811680064
+      spriteID: 299c495c9b35ea3a0800000000000000
+      internalID: -6652287542230726254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0000_1
+      name: Vadim1_1
       rect:
         serializedVersion: 2
         x: 587
@@ -133,56 +145,56 @@ TextureImporter:
         width: 402
         height: 673
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d706259cf05c80e40800000000000000
-      internalID: 5622960806364864637
+      spriteID: cf0e80cf81ec2a3b0800000000000000
+      internalID: -5502609187990347524
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0000_2
+      name: Vadim1_2
       rect:
         serializedVersion: 2
-        x: 1096
+        x: 1091
         y: 0
-        width: 445
+        width: 459
         height: 673
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f282cf7a482e85990800000000000000
-      internalID: -7396913328574158801
+      spriteID: dcef2e73bf6560430800000000000000
+      internalID: 3748779376806919885
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0000_3
+      name: Vadim1_3
       rect:
         serializedVersion: 2
-        x: 1651
+        x: 1644
         y: 0
         width: 430
         height: 673
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04308aa0ea371ca20800000000000000
-      internalID: 3080870811438416704
+      spriteID: 0962451b20b1fa620800000000000000
+      internalID: 2787476392744593040
       vertices: []
       indices: 
       edges: []

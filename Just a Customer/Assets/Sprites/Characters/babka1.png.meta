@@ -14,6 +14,12 @@ TextureImporter:
   - first:
       213: 188179689751826559
     second: 0001_3
+  - first:
+      213: 492242805909792206
+    second: babka1_0
+  - first:
+      213: -4290786550683617465
+    second: babka1_1
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -104,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 0001_0
+      name: babka1_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 67
-        width: 426
-        height: 510
+        x: 59
+        y: 0
+        width: 366
+        height: 634
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e02c84b33dcf495c0800000000000000
-      internalID: -4209461767521648114
+      spriteID: ec5ae75593cc4d600800000000000000
+      internalID: 492242805909792206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 0001_1
+      name: babka1_1
       rect:
         serializedVersion: 2
-        x: 587
-        y: 77
-        width: 402
-        height: 473
+        x: 481
+        y: 0
+        width: 422
+        height: 634
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,50 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbdd2c956b8665830800000000000000
-      internalID: 4059547246520360380
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 0001_2
-      rect:
-        serializedVersion: 2
-        x: 1091
-        y: 77
-        width: 459
-        height: 522
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a3645b0d1ad287b0800000000000000
-      internalID: -5223372799517367392
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 0001_3
-      rect:
-        serializedVersion: 2
-        x: 1644
-        y: 82
-        width: 430
-        height: 531
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f70d9994e6c8c9200800000000000000
-      internalID: 188179689751826559
+      spriteID: 747ba7f9d501474c0800000000000000
+      internalID: -4290786550683617465
       vertices: []
       indices: 
       edges: []
