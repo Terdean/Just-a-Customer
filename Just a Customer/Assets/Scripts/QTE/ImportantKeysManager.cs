@@ -28,6 +28,7 @@ public class ImportantKeysManager : MonoBehaviour
 
     public void CheckForSameLatters() //Проверка есть ли у скриптов Subsequence одинаковые клавиши
     {
+        isSameLatterFound = false;
         foreach (var sucub in sucubs)
         {
             foreach (var latter in sucubs[_sameLatterForeachNum1].latters)
@@ -36,7 +37,7 @@ public class ImportantKeysManager : MonoBehaviour
                 {
                     foreach (var latterTocheck in sucubs[_sameLatterForeachNum3].latters)
                     {
-                        if (_missingCheckForeachNum1 != _missingCheckForeachNum3)
+                        if (_sameLatterForeachNum1 != _sameLatterForeachNum3)
                         {
                             if (sucubs[_sameLatterForeachNum1].latters[_sameLatterForeachNum2]
                             == sucubs[_sameLatterForeachNum3].latters[_sameLatterForeachNum4])
@@ -44,25 +45,21 @@ public class ImportantKeysManager : MonoBehaviour
                                 isSameLatterFound = true;
                                 break;
                             }
-                            else if (sucubs[_sameLatterForeachNum1].latters[_sameLatterForeachNum2]
-                                != sucubs[_sameLatterForeachNum3].latters[_sameLatterForeachNum4])
-                            {
-                                isSameLatterFound = false;
-                            }
                         }
                         _sameLatterForeachNum4++;
+                        if (isSameLatterFound) break;
                     }
-                    if (isSameLatterFound) break;
                     _sameLatterForeachNum3++;
                     _sameLatterForeachNum4 = 0;
+                    if (isSameLatterFound) break;
                 }
-                if (isSameLatterFound) break;
                 _sameLatterForeachNum2++;
                 _sameLatterForeachNum3 = 0;
+                if (isSameLatterFound) break;
             }
-            if (isSameLatterFound) break;
             _sameLatterForeachNum1++;
             _sameLatterForeachNum2 = 0;
+            if (isSameLatterFound) break;
         }
         _sameLatterForeachNum1 = 0;
     }

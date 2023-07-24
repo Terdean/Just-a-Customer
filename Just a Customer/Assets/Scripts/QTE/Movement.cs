@@ -1,33 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Movement : MonoBehaviour
 {
+    //Сюда надо добавить те объекты со скриптом Subsequence, которые будет отвечать за нужные для нажимания кнопки
     public Subsequence sucubLeft1;
     public Subsequence sucubLeft2;
     public Subsequence sucubRight1;
     public Subsequence sucubRight2;
 
+    //Тексты, что будут обозначать в интерфейсе нужную для нажатия клавишу
+    public Text textSignLeft;
+    public Text textSignRight;
+
+    //Эти переменные нужны, чтобы нужно было нажимать поочерёдно и нельзя было просто нажимать одну кнопку для движения
     private bool sucubLeftReset1;
     private bool sucubLeftReset2;
     private bool sucubRightReset1;
     private bool sucubRightReset2;
 
+    //Таймеры для смены управления
     private float leftChangeControlsTimer;
     public float leftChangeControlsTimerStartMin;
     public float leftChangeControlsTimerStartMax;
-
     private float rightChangeControlsTimer;
     public float rightChangeControlsTimerStartMin;
     public float rightChangeControlsTimerStartMax;
 
+    //Точки к которым будет двигаться игрок, если пойдёт в нажатую сторону
     public GameObject LeftSidePoint;
     public GameObject RightSidePoint;
 
+    //Тут куча вспомогательных переменных, просто тыкните на них и поймёте для чего они нужны
     private bool sucubFirstLatterChange;
     private int sucubsForeachNum;
+    private float _sameKeysCheckTimer = 3f;
+    private float _sameKeysCheckTimerStart = 3f;
 
+    //С помощью этого Менеджера фиксится куча багов
     [HideInInspector]
     public ImportantKeysManager importantKeysManager;
 
@@ -173,6 +185,8 @@ public class Movement : MonoBehaviour
             sucubRight1.latterNumber = 0;
         }
 
+        textSignLeft.text = sucubLeft1.latters[0] + " + " + sucubLeft2.latters[0] + " - идти влево";
+        textSignRight.text = sucubRight1.latters[0] + " + " + sucubRight2.latters[0] + " - идти вправо";
         importantKeysManager.MissingCheck();
     }
 }
