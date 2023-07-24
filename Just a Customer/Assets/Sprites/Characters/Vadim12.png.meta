@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 13313436ac8408b4abcede27b7034220
+guid: 4b968ccff5c094240a31b842ea4784d3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9095686380063386385
-    second: Vadim4_0
+      213: 4978565745622514250
+    second: Vadim12_0
   - first:
-      213: 7834592455917760415
-    second: Vadim4_1
+      213: -7768360344736623895
+    second: Vadim12_1
   - first:
-      213: -5482322349134447436
-    second: Vadim4_2
+      213: 3553775819396202574
+    second: Vadim12_2
   - first:
-      213: 8384842517277191324
-    second: Vadim4_3
+      213: -4636655733366466338
+    second: Vadim12_3
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -104,7 +104,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Vadim4_0
+      name: Vadim12_0
       rect:
         serializedVersion: 2
         x: 62
@@ -118,17 +118,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11b6908529e5a3e70800000000000000
-      internalID: 9095686380063386385
+      spriteID: a4af1c60b2b671540800000000000000
+      internalID: 4978565745622514250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vadim4_1
+      name: Vadim12_1
       rect:
         serializedVersion: 2
-        x: 590
+        x: 587
         y: 0
         width: 402
         height: 673
@@ -139,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9feee644501abc60800000000000000
-      internalID: 7834592455917760415
+      spriteID: 9e21ebccc6d313490800000000000000
+      internalID: -7768360344736623895
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vadim4_2
+      name: Vadim12_2
       rect:
         serializedVersion: 2
         x: 1096
@@ -160,14 +160,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4bcf7abbed0eae3b0800000000000000
-      internalID: -5482322349134447436
+      spriteID: e40cb7e674c815130800000000000000
+      internalID: 3553775819396202574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Vadim4_3
+      name: Vadim12_3
       rect:
         serializedVersion: 2
         x: 1651
@@ -181,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c9c26eb38d1fc5470800000000000000
-      internalID: 8384842517277191324
+      spriteID: ed8d9e23d2a47afb0800000000000000
+      internalID: -4636655733366466338
       vertices: []
       indices: 
       edges: []
