@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/AnemoOwls Scenes/MeMEDmenu.unity
+    guid: c349477223a4c814b930c2f88ac3ed55
+  - enabled: 1
+    path: Assets/Scenes/AnemoOwls Scenes/MovingTextFL.unity
+    guid: ded27df2b988c0846b30c3cde0d68c7c
+  - enabled: 1
+    path: Assets/Scenes/AnemoOwls Scenes/ComicsInTheStart.unity
+    guid: f5249f851fe44d24e9cf14586bf8fce5
   m_configObjects: {}
