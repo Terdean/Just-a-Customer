@@ -141,87 +141,8 @@ public class Subsequence : MonoBehaviour
             sequences[_randomFillerForeachNum] = false;
 
             _randomLatter = UnityEngine.Random.Range(0, 25);
-            switch (_randomLatter)
-            {
-                case 0:
-                    latters[_randomFillerForeachNum] = "A";
-                    return;
-                case 1:
-                    latters[_randomFillerForeachNum] = "B";
-                    return;
-                case 2:
-                    latters[_randomFillerForeachNum] = "C";
-                    return;
-                case 3:
-                    latters[_randomFillerForeachNum] = "D";
-                    return;
-                case 4:
-                    latters[_randomFillerForeachNum] = "E";
-                    return;
-                case 5:
-                    latters[_randomFillerForeachNum] = "F";
-                    return;
-                case 6:
-                    latters[_randomFillerForeachNum] = "G";
-                    return;
-                case 7:
-                    latters[_randomFillerForeachNum] = "H";
-                    return;
-                case 8:
-                    latters[_randomFillerForeachNum] = "I";
-                    return;
-                case 9:
-                    latters[_randomFillerForeachNum] = "J";
-                    return;
-                case 10:
-                    latters[_randomFillerForeachNum] = "K";
-                    return;
-                case 11:
-                    latters[_randomFillerForeachNum] = "L";
-                    return;
-                case 12:
-                    latters[_randomFillerForeachNum] = "M";
-                    return;
-                case 13:
-                    latters[_randomFillerForeachNum] = "N";
-                    return;
-                case 14:
-                    latters[_randomFillerForeachNum] = "O";
-                    return;
-                case 15:
-                    latters[_randomFillerForeachNum] = "P";
-                    return;
-                case 16:
-                    latters[_randomFillerForeachNum] = "Q";
-                    return;
-                case 17:
-                    latters[_randomFillerForeachNum] = "R";
-                    return;
-                case 18:
-                    latters[_randomFillerForeachNum] = "S";
-                    return;
-                case 19:
-                    latters[_randomFillerForeachNum] = "T";
-                    return;
-                case 20:
-                    latters[_randomFillerForeachNum] = "U";
-                    return;
-                case 21:
-                    latters[_randomFillerForeachNum] = "V";
-                    return;
-                case 22:
-                    latters[_randomFillerForeachNum] = "W";
-                    return;
-                case 23:
-                    latters[_randomFillerForeachNum] = "X";
-                    return;
-                case 24:
-                    latters[_randomFillerForeachNum] = "Y";
-                    return;
-                case 25:
-                    latters[_randomFillerForeachNum] = "Z";
-                    return;
-            }
+            randomLatterFillerSwitch(_randomLatter);
+
             _randomFillerForeachNum++;
         }
         _randomFillerForeachNum = 0;
@@ -257,5 +178,90 @@ public class Subsequence : MonoBehaviour
             latterNumber++;
         }
         lastPressedKey = KeyCode.Slash; //Это нужно, чтобы игра не запоминала, что нажата данная кнопка и не повторила процесс, если следующая кнопка в массиве совпадает
+    }
+
+    private void randomLatterFillerSwitch(int latterNumber)
+    {
+        switch (_randomLatter)
+        {
+            case 0:
+                latters[_randomFillerForeachNum] = "A";
+                return;
+            case 1:
+                latters[_randomFillerForeachNum] = "B";
+                return;
+            case 2:
+                latters[_randomFillerForeachNum] = "C";
+                return;
+            case 3:
+                latters[_randomFillerForeachNum] = "D";
+                return;
+            case 4:
+                latters[_randomFillerForeachNum] = "E";
+                return;
+            case 5:
+                latters[_randomFillerForeachNum] = "F";
+                return;
+            case 6:
+                latters[_randomFillerForeachNum] = "G";
+                return;
+            case 7:
+                latters[_randomFillerForeachNum] = "H";
+                return;
+            case 8:
+                latters[_randomFillerForeachNum] = "I";
+                return;
+            case 9:
+                latters[_randomFillerForeachNum] = "J";
+                return;
+            case 10:
+                latters[_randomFillerForeachNum] = "K";
+                return;
+            case 11:
+                latters[_randomFillerForeachNum] = "L";
+                return;
+            case 12:
+                latters[_randomFillerForeachNum] = "M";
+                return;
+            case 13:
+                latters[_randomFillerForeachNum] = "N";
+                return;
+            case 14:
+                latters[_randomFillerForeachNum] = "O";
+                return;
+            case 15:
+                latters[_randomFillerForeachNum] = "P";
+                return;
+            case 16:
+                latters[_randomFillerForeachNum] = "Q";
+                return;
+            case 17:
+                latters[_randomFillerForeachNum] = "R";
+                return;
+            case 18:
+                latters[_randomFillerForeachNum] = "S";
+                return;
+            case 19:
+                latters[_randomFillerForeachNum] = "T";
+                return;
+            case 20:
+                latters[_randomFillerForeachNum] = "U";
+                return;
+            case 21:
+                latters[_randomFillerForeachNum] = "V";
+                return;
+            case 22:
+                latters[_randomFillerForeachNum] = "W";
+                return;
+            case 23:
+                latters[_randomFillerForeachNum] = "X";
+                return;
+            case 24:
+                latters[_randomFillerForeachNum] = "Y";
+                return;
+            case 25:
+                latters[_randomFillerForeachNum] = "Z";
+                return;
+        }
     }
 }

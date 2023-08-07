@@ -49,13 +49,6 @@ public class Breath : MonoBehaviour
             importantKeysManager.CheckForSameLatters();
             if (importantKeysManager.isSameLatterFound == false) sucubFirstLatterChange = true;
         }
-        if (sucubTimer > 0) sucubTimer -= Time.deltaTime;
-        else
-        {
-            sucub.sequencesRandomFiller(1);
-            importantKeysManager.CheckForSameLatters();
-            if (importantKeysManager.isSameLatterFound == false) sucubTimer = sucubTimerStart;
-        }
 
         if (againTimer > 0) againTimer -= Time.deltaTime;
         else
@@ -173,13 +166,13 @@ public class Breath : MonoBehaviour
 
     private void sucubRavager()
     {
-        sucub.isEverySequencesTrue = false;
         foreach (bool i in sucub.sequences)
         {
             sucub.sequences[_foreachNum] = false;
             _foreachNum++;
         }
         _foreachNum = 0;
+        sucub.isEverySequencesTrue = false;
         sucub.latterNumber = 0;
     }
 }
