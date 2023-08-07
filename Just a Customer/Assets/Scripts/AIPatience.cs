@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AIPatience : MonoBehaviour
 {
+    public Animator Painter;
+    public health HelPont;
     public float speed;
     public GameObject[] dot;
     private int RndmRun;
@@ -15,6 +17,7 @@ public class AIPatience : MonoBehaviour
     }
     void Update()
     {
+        Painter.SetFloat("SUS?", HelPont.hp_schet);
         if (dot[RndmRun].transform.position.x > transform.position.x)
         {
             GetComponent<SpriteRenderer>().flipX = false;
